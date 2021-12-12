@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <LINK REL="SHORTCUT ICON"  HREF="../img/favicon-16x16.png">
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/dashboard.css"/>
+
+
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <link rel="stylesheet" href="../css/main.css">
+
+  <script src="https://canvas-gauges.com/download/latest/all/gauge.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
+  <script src="../js/script.js"></script>
+  </head>
+  <body>
+    
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <!-- Header section containing title -->
+      <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+          <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--8-col-desktop">
+            <a href="../html/dashboard.html"><h3>FIREBASE IOT DASHBOARD
+              <span style="font-size: 20px;font-family: Arial, Helvetica, sans-serif; padding-left: 160px;">
+                  <span id="user" class="message"></Email-id></span> &nbsp;
+                  <button class="btn btn-danger" onclick="logout()">Logout</button>   
+              </span>
+            </h3></a>
+          </div>
+        </div>
+      </header>
+    
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+        <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop dashboard">
+          <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+            <h2 class="mdl-card__title-text">DASHBOARD</h2>
+          </div>
+          <div class="mdl-card__supporting-text">
+            <div class="mdl-grid">
+            <!-- Red led toggle button Card -->
+              <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+               <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+                <h2 style="font-size:15px; font-weight: bold;" class="mdl-card__title-text">TOGGLE RED LED</h2>
+               </div>
+               <div class="mdl-card__supporting-text">
+                <div style="padding-left: 110px; padding-top: 40px;">
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="red">
+                    <input type="checkbox" id="red" class="mdl-switch__input">
+                    <span class="mdl-switch__label"></span>
+                  </label>
+                </div>
+                </div>
+             </div>
+              <!-- Green led toggle button Card -->
+             <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+                <h2 style="font-size:15px; font-weight: bold;" class="mdl-card__title-text">TOGGLE GREEN LED</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                <div style="padding-left: 110px; padding-top: 40px;">
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="green">
+                    <input type="checkbox" id="green" class="mdl-switch__input">
+                    <span class="mdl-switch__label"></span>
+                  </label>
+                </div>
+                </div>
+             </div>
+               <!-- Servo Slider Card -->
+             <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+                <h2 style="font-size:15px; font-weight: bold;" class="mdl-card__title-text">SET SERVO</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <p style="width:250px; padding-left: 5px; padding-top: 40px;">
+                    <input id="slider" class="mdl-slider mdl-js-slider" type="range" id="s1" min="0" max="180" value="0" step="5">
+                    <span id="sliderval">0</span>
+                  </p>
+                </div>
+             </div>
+          </div>
+          <div class="mdl-grid">
+             <!-- LDR Gauge Card -->
+             <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+                <h2 style="font-size:15px; font-weight: bold;" class="mdl-card__title-text">LDR GAUGE</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                <div style="padding-left:0">
+                  <canvas id="canvas" data-type="radial-gauge"
+                    data-width="225"
+                    data-height="225"
+                    data-units="Brightness"
+                    data-min-value="350"
+                    data-start-angle="90"
+                    data-ticks-angle="180"
+                    data-value-box="false"
+                    data-max-value="900"
+                    data-major-ticks="350,400,450,500,550,600,650,700,750,800,850,900"
+                    data-minor-ticks="2"
+                    data-stroke-ticks="true"
+                    data-highlights='[
+                      {"from": 700, "to": 900, "color": "rgba(200, 50, 50, .75)"}
+                    ]'
+                    data-color-plate="#fff"
+                    data-border-shadow-width="0"
+                    data-borders="false"
+                    data-needle-type="arrow"
+                    data-needle-width="2"
+                    data-needle-circle-size="7"
+                    data-needle-circle-outer="true"
+                    data-needle-circle-inner="false"
+                    data-animation-duration="1500"
+                    data-animation-rule="linear"
+                  ></canvas>
+                </div>
+                </div>
+             </div>
+              <!-- Live Chart.js for Ultrasonic value -->
+             <div class="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+                <h2 style="font-size:15px; font-weight: bold;" class="mdl-card__title-text">ULTASONIC</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <canvas id="myChart" width="600" height="350"></canvas>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        </div>
+      </main>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="../js/firebase.js"></script>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
